@@ -58,7 +58,7 @@ private:
     bool vegigszamolom=false;
 
 
-    void set_up();
+
     void set_up_plugins(const QDir &root_dir);
 
     void set_variable_index(int variable_index);
@@ -110,6 +110,7 @@ signals:
     void szamoldvegig(bool vegig);
 
 public slots:
+    void set_up();
     void variable_numbers_defined(int, int);
     void do_settings_change(int,QString);
     void do_set_beallitasok();

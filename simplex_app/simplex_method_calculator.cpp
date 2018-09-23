@@ -28,7 +28,9 @@ void Simplex_method_calculator::start(const QDir& root_dir)
 {
     w=new MainWindow();
     w->add_menus(this);
-    set_up();
+    do_set_beallitasok();
+    connect(this->indulo_feladat,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(do_when_indulo_feladat_changed(QModelIndex,QModelIndex,QVector<int>)));
+
     set_up_plugins(root_dir);
     w->showMaximized();
 }
@@ -601,15 +603,7 @@ void Simplex_method_calculator::do_when_exercise_loaded(QStandardItemModel* temp
 
 }
 
-void Simplex_method_calculator::set_up()
-{
-Settings settings(get_variable_index(),get_variable_name());
-connect(&settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
-connect(this->indulo_feladat,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(do_when_indulo_feladat_changed(QModelIndex,QModelIndex,QVector<int>)));
 
-settings.setModal(true);
-settings.exec();
-}
 
 void Simplex_method_calculator::do_set_beallitasok()
 {
