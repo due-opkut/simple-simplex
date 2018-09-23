@@ -38,7 +38,7 @@ private:
     QStringList *horizontal_header;
     QStringList *vertical_header;
     QStandardItemModel *temp_for_exercise_load;
-
+    Settings *settings;
     gui_plugin_loader* gui_plugin_loader_;
     Pivot_Selector_Plugin_Loader* pivot_selector_plugin_loader_;
     exercise_load_plugin_loader* exercise_load_plugin_loader_;
@@ -110,7 +110,7 @@ signals:
     void szamoldvegig(bool vegig);
 
 public slots:
-    void set_up();
+ //   void set_up();
     void variable_numbers_defined(int, int);
     void do_settings_change(int,QString);
     void do_set_beallitasok();

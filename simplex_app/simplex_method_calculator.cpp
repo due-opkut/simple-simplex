@@ -1,4 +1,5 @@
 #include "simplex_method_calculator.h"
+#include <QScopedPointer>
 #include "settings.h"
 #include "nevjegy.h"
 #include <QMessageBox>
@@ -607,10 +608,11 @@ void Simplex_method_calculator::do_when_exercise_loaded(QStandardItemModel* temp
 
 void Simplex_method_calculator::do_set_beallitasok()
 {
-    Settings settings(get_variable_index(),get_variable_name());
-    settings.setModal(true);
-    connect(&settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
-    settings.exec();
+    settings=new Settings(get_variable_index(),get_variable_name());
+    connect(this->settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
+    settings->setModal(true);
+
+    settings->exec();
 
 }
 
