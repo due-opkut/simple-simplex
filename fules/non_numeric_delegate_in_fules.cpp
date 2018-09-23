@@ -1,14 +1,14 @@
-#include "non_numeric_delegate.h"
+#include "non_numeric_delegate_in_fules.h"
 #include <QComboBox>
 #include <QWidget>
 #include <QModelIndex>
 #include <QString>
-Non_numeric_Delegate::Non_numeric_Delegate(QObject *parent) : QItemDelegate(parent)
+Non_numeric_Delegate_in_fules::Non_numeric_Delegate_in_fules(QObject *parent) : QItemDelegate(parent)
 {
 
 }
 
-QWidget *Non_numeric_Delegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+QWidget *Non_numeric_Delegate_in_fules::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if(index.row()==0)
     {
@@ -27,13 +27,13 @@ QWidget *Non_numeric_Delegate::createEditor(QWidget *parent, const QStyleOptionV
     return editor;
     }
 }
-void Non_numeric_Delegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void Non_numeric_Delegate_in_fules::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     auto *comboBox = dynamic_cast<QComboBox*>(editor);
       int value = index.model()->data(index, Qt::EditRole).toUInt();
       comboBox->setCurrentIndex(value);
 }
-void Non_numeric_Delegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+void Non_numeric_Delegate_in_fules::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 auto *combobox = dynamic_cast<QComboBox*>(editor);
     QString value = combobox->currentText();
@@ -41,7 +41,7 @@ auto *combobox = dynamic_cast<QComboBox*>(editor);
 
 
 }
-void Non_numeric_Delegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void Non_numeric_Delegate_in_fules::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     editor->setGeometry(option.rect);
 }

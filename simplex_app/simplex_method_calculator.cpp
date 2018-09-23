@@ -4,13 +4,15 @@
 #include <QMessageBox>
 #include <QDir>
 
+/**
+ * @brief
+ *
+ */
 Simplex_method_calculator::Simplex_method_calculator()
 {
     this->variable_index=1;
     this->variable_name="x";
     pivoter_=new pivoter();
-
-
     indulo_feladat=new QStandardItemModel();
     kanonikus_alak=new QStandardItemModel();
     indulo_matrix=new QStandardItemModel();
@@ -19,31 +21,19 @@ Simplex_method_calculator::Simplex_method_calculator()
     horizontal_header=new QStringList;
     vertical_header=new QStringList;
     temp_for_exercise_load=new QStandardItemModel;
-
     delegate_for_numbers=new Delegate_for_numbers(this);
     non_numeric_delegate=new Non_numeric_Delegate(this);
-
-
 }
-void Simplex_method_calculator::start(int argc, char* argv[],const QDir& plugins_dir)
+void Simplex_method_calculator::start(const QDir& root_dir)
 {
     w=new MainWindow();
     w->add_menus(this);
     set_up();
-    set_up_plugins(plugins_dir);
+    set_up_plugins(root_dir);
     w->showMaximized();
-
-
 }
 
-void Simplex_method_calculator::do_set_beallitasok()
-{
-    Settings settings(get_variable_index(),get_variable_name());
-    settings.setModal(true);
-    connect(&settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
-    settings.exec();
 
-}
 void Simplex_method_calculator::do_settings_change(int var_index, QString var_name)
 {
     do_when_make_kanonikus();
@@ -621,7 +611,16 @@ settings.setModal(true);
 settings.exec();
 }
 
-void Simplex_method_calculator::set_up_plugins(const QDir& plugins_dir)
+void Simplex_method_calculator::do_set_beallitasok()
+{
+    Settings settings(get_variable_index(),get_variable_name());
+    settings.setModal(true);
+    connect(&settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
+    settings.exec();
+
+}
+
+void Simplex_method_calculator::set_up_plugins(const QDir& root_dir)
 {
     gui_plugin_loader_= new gui_plugin_loader(this, w);
     pivot_selector_plugin_loader_=new Pivot_Selector_Plugin_Loader(this, w);
@@ -629,15 +628,15 @@ void Simplex_method_calculator::set_up_plugins(const QDir& plugins_dir)
     exercise_load_plugin_loader_=new exercise_load_plugin_loader(this,w);
     picture_load_plugin_loader_=new picture_load_plugin_loader(this,w);
 
-    gui_plugin_loader_->load_plugins(plugins_dir);
+    gui_plugin_loader_->load_plugins(root_dir);
 
-    pivot_selector_plugin_loader_->load_plugins(plugins_dir);
+    pivot_selector_plugin_loader_->load_plugins(root_dir);
 
-    result_reporter_plugin_loader_->load_plugins(plugins_dir);
+    result_reporter_plugin_loader_->load_plugins(root_dir);
 
-    exercise_load_plugin_loader_->load_plugins(plugins_dir);
+    exercise_load_plugin_loader_->load_plugins(root_dir);
 
-    picture_load_plugin_loader_->load_plugins(plugins_dir);
+    picture_load_plugin_loader_->load_plugins(root_dir);
 }
 void Simplex_method_calculator::do_when_kanonikus_clicked()
 {

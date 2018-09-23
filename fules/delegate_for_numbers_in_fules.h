@@ -1,14 +1,13 @@
-#ifndef DELEGATE_FOR_NUMBERS_H
-#define DELEGATE_FOR_NUMBERS_H
+#pragma once
 #include <QStyledItemDelegate>
 
 
-class Delegate_for_numbers : public QStyledItemDelegate
+class Delegate_for_numbers_in_fules : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
-    Delegate_for_numbers(QObject *parent = 0);
+    Delegate_for_numbers_in_fules(QObject *parent = nullptr);
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                           const QModelIndex &index) const Q_DECL_OVERRIDE;
@@ -21,4 +20,3 @@ public:
                               const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 };
 
-#endif // DELEGATE_FOR_NUMBERS_H

@@ -9,7 +9,7 @@
 #include <QSharedDataPointer>
 #include <QStringRef>
 #include <QPushButton>
-Db_loader::Db_loader(QStandardItemModel* exercise, QString const &baseurl="Insert REST API URL here", QWidget *parent) :
+Db_loader::Db_loader(QStandardItemModel* exercise, QString const &baseurl="http://server.realm/api.php/", QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Db_loader)
 {

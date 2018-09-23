@@ -27,7 +27,7 @@ class Simplex_method_calculator: public QWidget
 
 public:
     Simplex_method_calculator();
-    void start(int, char *[], const QDir &plugins_dir);
+    void start(const QDir &plugins_dir);
 
 private:
     QStandardItemModel *indulo_feladat;
@@ -59,7 +59,7 @@ private:
 
 
     void set_up();
-    void set_up_plugins(const QDir &plugins_dir);
+    void set_up_plugins(const QDir &root_dir);
 
     void set_variable_index(int variable_index);
     void set_variable_name(QString variable_name);
@@ -87,23 +87,23 @@ private:
     void set_kanonikus_horizontal_header();
     void insert_surplus_variable(QList<QStandardItem *>items);
     void insert_surplus_variable_header(int row, int z);
-    void copy_model_from_to(QStandardItemModel* from, QStandardItemModel* to);
+    void copy_model_from_to(QStandardItemModel* from, QStandardItemModel *to);
 
     bool is_two_phase(QStandardItemModel* model);
     bool is_first_phase_ready(QStandardItemModel *model);
-    void remove_surplus_from_column(QStandardItemModel* model);
+    void remove_surplus_from_column(QStandardItemModel *model);
     void copy_model_data_from_to(QStandardItemModel *from, QStandardItemModel *to);
 
 signals:
-    void set_indulo_feladat_model_view(QStandardItemModel*);
-    void set_kanonikus_alak_model_view(QStandardItemModel*);
-    void set_indulo_matrix_model_view(QStandardItemModel*);
-    void set_utolso_elotti_allapot_model_view(QStandardItemModel*);
-    void set_utolso_allapot_model_view(QStandardItemModel*);
-    void set_delegate_for_numbers(QStyledItemDelegate*);
-    void set_non_numeric_delegate(QItemDelegate*);
+    void set_indulo_feladat_model_view(QStandardItemModel *model);
+    void set_kanonikus_alak_model_view(QStandardItemModel *model);
+    void set_indulo_matrix_model_view(QStandardItemModel *model);
+    void set_utolso_elotti_allapot_model_view(QStandardItemModel *model);
+    void set_utolso_allapot_model_view(QStandardItemModel *model);
+    void set_delegate_for_numbers(QStyledItemDelegate *model);
+    void set_non_numeric_delegate(QItemDelegate *model);
     void indulo_feladat_changed();
-    void external_exercise_loaded(int,int);
+    void external_exercise_loaded(int termteny,int korlfelt);
     void got_kanonikus_clicked();
     void got_indulo_matrix_clicked();
     void button_kezd_clicked(int termteny, int korlfelt);

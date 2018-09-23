@@ -1,11 +1,11 @@
-#include "delegate_for_numbers.h"
+#include "delegate_for_numbers_in_fules.h"
 #include <QDoubleSpinBox>
 
-Delegate_for_numbers::Delegate_for_numbers(QObject *parent): QStyledItemDelegate(parent)
+Delegate_for_numbers_in_fules::Delegate_for_numbers_in_fules(QObject *parent): QStyledItemDelegate(parent)
 {
 
 }
-QWidget *Delegate_for_numbers::createEditor(QWidget *parent,
+QWidget *Delegate_for_numbers_in_fules::createEditor(QWidget *parent,
     const QStyleOptionViewItem &/* option */,
     const QModelIndex &/* index */) const
 {
@@ -21,7 +21,7 @@ QWidget *Delegate_for_numbers::createEditor(QWidget *parent,
 //! [1]
 
 //! [2]
-void Delegate_for_numbers::setEditorData(QWidget *editor,
+void Delegate_for_numbers_in_fules::setEditorData(QWidget *editor,
                                     const QModelIndex &index) const
 {
     double value = index.model()->data(index, Qt::EditRole).toDouble();
@@ -32,7 +32,7 @@ void Delegate_for_numbers::setEditorData(QWidget *editor,
 //! [2]
 
 //! [3]
-void Delegate_for_numbers::setModelData(QWidget *editor, QAbstractItemModel *model,
+void Delegate_for_numbers_in_fules::setModelData(QWidget *editor, QAbstractItemModel *model,
                                    const QModelIndex &index) const
 {
     auto *spinBox = dynamic_cast<QDoubleSpinBox*>(editor);
@@ -44,7 +44,7 @@ void Delegate_for_numbers::setModelData(QWidget *editor, QAbstractItemModel *mod
 //! [3]
 
 //! [4]
-void Delegate_for_numbers::updateEditorGeometry(QWidget *editor,
+void Delegate_for_numbers_in_fules::updateEditorGeometry(QWidget *editor,
     const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
 {
     editor->setGeometry(option.rect);

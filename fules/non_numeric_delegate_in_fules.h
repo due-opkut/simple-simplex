@@ -1,5 +1,4 @@
-#ifndef NON_NUMERIC_DELEGATE_H
-#define NON_NUMERIC_DELEGATE_H
+#pragma once
 #include <QWidget>
 #include <QObject>
 #include <QItemDelegate>
@@ -11,11 +10,11 @@ class QModelIndex;
 class QWidget;
 class QVariant;
 
-class Non_numeric_Delegate: public QItemDelegate
+class Non_numeric_Delegate_in_fules: public QItemDelegate
 {
     Q_OBJECT
 public:
-    Non_numeric_Delegate(QObject *parent = 0);
+    Non_numeric_Delegate_in_fules(QObject *parent = nullptr);
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
@@ -23,4 +22,3 @@ public:
 
 };
 
-#endif // NON_NUMERIC_DELEGATE_H
