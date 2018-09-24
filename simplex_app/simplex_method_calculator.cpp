@@ -5,10 +5,8 @@
 #include <QMessageBox>
 #include <QDir>
 
-/**
- * @brief
- *
- */
+
+
 Simplex_method_calculator::Simplex_method_calculator()
 {
     this->variable_index=1;
@@ -25,13 +23,13 @@ Simplex_method_calculator::Simplex_method_calculator()
     delegate_for_numbers=new Delegate_for_numbers(this);
     non_numeric_delegate=new Non_numeric_Delegate(this);
 }
+
 void Simplex_method_calculator::start(const QDir& root_dir)
 {
     w=new MainWindow();
     w->add_menus(this);
     do_set_beallitasok();
     connect(this->indulo_feladat,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(do_when_indulo_feladat_changed(QModelIndex,QModelIndex,QVector<int>)));
-
     set_up_plugins(root_dir);
     w->showMaximized();
 }
@@ -43,9 +41,9 @@ void Simplex_method_calculator::do_settings_change(int var_index, QString var_na
     this->variable_index=var_index;
     this->variable_name=var_name;
     if (indulo_feladat->columnCount()>2 && indulo_feladat->rowCount()>1)
-        {
-            set_headers(indulo_feladat->columnCount()-2,indulo_feladat->rowCount()-1);
-        }
+    {
+        set_headers(indulo_feladat->columnCount()-2,indulo_feladat->rowCount()-1);
+    }
 
 
 }
@@ -87,9 +85,7 @@ void Simplex_method_calculator::initialize_indulo_feladat(int term_tenyezok, int
 }
 void Simplex_method_calculator::set_cell_to_null(int row, int col)
 {
-    //Vedd a cella indexét
     QModelIndex index = indulo_feladat->index(row,col,QModelIndex());
-    // És állítsd az értékét 0-ra
     indulo_feladat->setData(index,0.0);
 }
 void Simplex_method_calculator::set_relation_signs(int row, int col)
@@ -97,13 +93,11 @@ void Simplex_method_calculator::set_relation_signs(int row, int col)
     QModelIndex index = indulo_feladat->index(row,col,QModelIndex());
     if (row != 0 )
     {
-        //spec jelek beállítása
         indulo_feladat->setData(index,"<=");
 
     }
     else
     {
-        //spec jelek beállítása
         indulo_feladat->setData(index,"max");
     }
 }
@@ -115,7 +109,6 @@ void Simplex_method_calculator::set_horizontal_headers(int term_tenyezok)
         QString oszlopcim= get_variable_name() + QString::number(col+get_variable_index());
         horizontal_header->append(oszlopcim);
     }
-    //utolsó oszlopok fejlécének beállítása
     horizontal_header->append("<=");
     horizontal_header->append("b");
 }
@@ -123,7 +116,6 @@ void Simplex_method_calculator::set_vertical_headers(int korl_feltetelek)
 {
     vertical_header->clear();
     vertical_header->append("c");
-    //sorcímke beállítása
     for(int row = 1; row < korl_feltetelek+1; ++row)
     {
         QString sorcim= "Korl_" + QString::number(row);
@@ -132,35 +124,30 @@ void Simplex_method_calculator::set_vertical_headers(int korl_feltetelek)
 }
 void Simplex_method_calculator::set_headers(int term_tenyezok, int korl_feltetelek)
 {
-    //változónevek tárolása oszlopfejlécben
+
     set_horizontal_headers(term_tenyezok);
     set_vertical_headers(korl_feltetelek);
     if (utolso_elotti_allapot->columnCount()>2 && utolso_elotti_allapot->rowCount()>1)
-        {
+    {
         indulo_feladat->setHorizontalHeaderLabels(*horizontal_header);
-        //sorcímkék publikálása
         indulo_feladat->setVerticalHeaderLabels(*vertical_header);
         do_when_kanonikus_clicked();
-            do_when_indulo_matrix_clicked();
+        do_when_indulo_matrix_clicked();
 
-        }
+    }
     else if  (kanonikus_alak->columnCount()>2 && indulo_feladat->rowCount()>1)
-        {
-        //oszlopfejlécek publikálása
+    {
         indulo_feladat->setHorizontalHeaderLabels(*horizontal_header);
-        //sorcímkék publikálása
         indulo_feladat->setVerticalHeaderLabels(*vertical_header);
 
-            do_when_kanonikus_clicked();
-        }
+        do_when_kanonikus_clicked();
+    }
     else if (indulo_feladat->columnCount()>2 && indulo_feladat->rowCount()>1)
-        {
-        //oszlopfejlécek publikálása
+    {
         indulo_feladat->setHorizontalHeaderLabels(*horizontal_header);
-        //sorcímkék publikálása
         indulo_feladat->setVerticalHeaderLabels(*vertical_header);
 
-        }
+    }
 
 
 
@@ -169,7 +156,6 @@ void Simplex_method_calculator::variable_numbers_defined(int term_tenyezok, int 
 {
 
     initialize_indulo_feladat(term_tenyezok,  korl_feltetelek);
-    //Külső for; Minden soron menj végig és csináld azt...
     for(int row = 0; row < korl_feltetelek+1; ++row)
     {
         for(int col = 0; col < term_tenyezok; ++col)
@@ -219,7 +205,6 @@ void Simplex_method_calculator::copy_row(int row,QList<QStandardItem *> items)
         }
         else
         {
-            // ...átmásolom az értékeket az induló modellből
             items.append(indulo_feladat->item(row,col)->clone());
         }
     }
@@ -234,7 +219,6 @@ void Simplex_method_calculator::do_when_make_kanonikus_handle_default_case(int r
 }
 void Simplex_method_calculator::do_when_make_kanonikus_handle_greather_than(int row,QList<QStandardItem *> items)
 {
-    //akkor másolom, és a sort megjelölöm
     copy_row(row,items);
     set_kanonikus_vertical_header_equation_case(row);
 
@@ -253,7 +237,6 @@ void Simplex_method_calculator::set_kanonikus_vertical_header_equation_case(int 
 }
 void Simplex_method_calculator::do_when_make_kanonikus_handle_equation(int row,QList<QStandardItem *> items)
 {
-    //akkor másolom, és a sort megjelölöm
     for(int col = 0; col < (indulo_feladat->columnCount()); ++col)
     {
         if (col==(indulo_feladat->columnCount())-2)
@@ -270,7 +253,6 @@ void Simplex_method_calculator::do_when_make_kanonikus_handle_equation(int row,Q
 }
 void Simplex_method_calculator::set_kanonikus_vertical_header_minimum_case()
 {
-    //a min-t max-á alakítom
     vertical_header->append("c");
 }
 void Simplex_method_calculator::do_when_make_kanonikus_handle_minimum(int row,QList<QStandardItem *> items)
@@ -278,7 +260,6 @@ void Simplex_method_calculator::do_when_make_kanonikus_handle_minimum(int row,QL
     QModelIndex index=indulo_feladat->index(row,((indulo_feladat->columnCount())-2)+1);
     for(int col = 0; col < (indulo_feladat->columnCount())-2; ++col)
     {
-        // ...átmásolom az értékek -1 szeresét az induló modellből
         QModelIndex index = indulo_feladat->index(row,col,QModelIndex());
         items.append(new QStandardItem (QString::number(((indulo_feladat->data(index).toDouble()))*-1)));
     }
@@ -341,24 +322,20 @@ void Simplex_method_calculator::do_when_make_kanonikus()
         initialize_kanonikus();
         for(int row = 0; row < indulo_feladat->rowCount(); ++row)
         {
-            //az elemekből listát építek
+
             QModelIndex index = indulo_feladat->index(row,(indulo_feladat->columnCount())-2,QModelIndex());
-            //Ha  a feladat maximalizálás vagy a korlátozó feltételek "<=", akkor semmi különös...
             if ((indulo_feladat->data(index).toString())==("max") || (indulo_feladat->data(index).toString())=="<=")
             {
                 do_when_make_kanonikus_handle_default_case(row,items);
             }
-            // ha a relációs jel "=>"
             else if(indulo_feladat->data(index).toString()==("=>"))
             {
                 do_when_make_kanonikus_handle_greather_than(row,items);
-                //do_when_make_kanonikus_handle_equation(row,items);
             }
             else if((indulo_feladat->data(index).toString())==("="))
             {
                 do_when_make_kanonikus_handle_equation(row,items);
             }
-            //ha minimum
             else if ((indulo_feladat->data(index).toString())==("min"))
             {
                 do_when_make_kanonikus_handle_minimum(row,items);
@@ -381,7 +358,6 @@ void Simplex_method_calculator::do_when_make_indulo_matrix()
         QList<QStandardItem *> items;
         QList<QStandardItem *> items2;
         QList<QStandardItem *> items3;
-        //lépésszám nullára
         this->lepesszam=0;
 
         int z=0;
@@ -522,7 +498,7 @@ void Simplex_method_calculator::do_when_post_pivot_element(QModelIndex index)
         utolso_allapot->setColumnCount(utolso_elotti_allapot->columnCount());
         utolso_allapot->setRowCount(utolso_elotti_allapot->rowCount());
         pivoter_->do_pivot(utolso_elotti_allapot,utolso_allapot,index);
-         remove_surplus_from_column(utolso_allapot);
+        remove_surplus_from_column(utolso_allapot);
         if(vegigszamolom)
             do_when_szamol_clicked();
 
@@ -561,7 +537,7 @@ void Simplex_method_calculator::remove_surplus_from_column(QStandardItemModel* m
         if (((model->horizontalHeaderItem(i))->text().at(0))=='*')
         {
             model->removeColumn(i);
-             i--;
+            i--;
         }
     }
 }
@@ -608,11 +584,12 @@ void Simplex_method_calculator::do_when_exercise_loaded(QStandardItemModel* temp
 
 void Simplex_method_calculator::do_set_beallitasok()
 {
-    settings=new Settings(get_variable_index(),get_variable_name());
-    connect(this->settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
-    settings->setModal(true);
+    Settings settings(get_variable_index(),get_variable_name());
 
-    settings->exec();
+    connect(&settings,SIGNAL(settings_changed(int,QString)),this,SLOT(do_settings_change(int,QString)));
+    settings.setModal(true);
+
+    settings.exec();
 
 }
 

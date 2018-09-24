@@ -18,6 +18,11 @@ class picture_load_plugin_loader;
 class gui_plugin_loader;
 class Pivot_Selector_Plugin_Loader;
 class exercise_load_plugin_loader;
+
+/**
+ * @brief This is the main class of the application
+ *
+ */
 class Simplex_method_calculator: public QWidget
 {
     Q_OBJECT
@@ -38,7 +43,6 @@ private:
     QStringList *horizontal_header;
     QStringList *vertical_header;
     QStandardItemModel *temp_for_exercise_load;
-    Settings *settings;
     gui_plugin_loader* gui_plugin_loader_;
     Pivot_Selector_Plugin_Loader* pivot_selector_plugin_loader_;
     exercise_load_plugin_loader* exercise_load_plugin_loader_;
@@ -50,12 +54,12 @@ private:
 
 
     MainWindow* w;
-    QString variable_name;
     pivoter *pivoter_;
     int variable_index;
     int lepesszam;
-    QString pivot_modszer;
     bool vegigszamolom=false;
+    QString variable_name;
+    QString pivot_modszer;
 
 
 
@@ -110,7 +114,7 @@ signals:
     void szamoldvegig(bool vegig);
 
 public slots:
- //   void set_up();
+
     void variable_numbers_defined(int, int);
     void do_settings_change(int,QString);
     void do_set_beallitasok();
